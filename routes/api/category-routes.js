@@ -8,6 +8,7 @@ router.get('/', async (req, res) => {
   // be sure to include its associated Products
   try {
     const categoryData = await Category.findAll({
+      // Include the products associated
       include: [{
         model: Product
       }]
@@ -36,6 +37,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   // create a new category
   try {
+    // Create Category with name given in body
     const categoryAdd = await Category.create({
       category_name: req.body.category_name
     });
@@ -48,6 +50,7 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
   // update a category by its `id` value
   try {
+    // Update the name based on the id in the route params
     const categoryUpdate = await Category.update(
       {
         category_name: req.body.category_name
@@ -67,6 +70,7 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   // delete a category by its `id` value
   try {
+    // Deleting the category based on id
     const categoryUpdate = await Category.destroy(
       {
         where: {

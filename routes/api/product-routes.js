@@ -9,6 +9,7 @@ router.get('/', async (req, res) => {
   // be sure to include its associated Category and Tag data
   try {
     const productData = await Product.findAll({
+      // Join database to display tags and the category
       include: [
         {
           model: Category
@@ -19,6 +20,7 @@ router.get('/', async (req, res) => {
         }
       ]
     });
+    // Send the json to client
     res.json(productData);
   } catch (err) {
     res.status(500).json(err);
@@ -30,6 +32,7 @@ router.get('/:id', async (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
   try {
+    // This time find by primary key given in the route params
     const productData = await Product.findByPk(req.params.id, {
       include: [
         {
